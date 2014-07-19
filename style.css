@@ -1,0 +1,22 @@
+.grid-container {
+  position: absolute;
+  z-index: 1;
+  background-color: white;
+  padding: 5px 5px;
+}
+
+.grid-cell {
+  width: 106.25px;
+  height: 106.25px;
+  margin: 5px;
+  float: left;
+  background: rgba(238, 228, 218, 0.35);
+}
+
+.tile {
+  font-size: 3em;
+  border: 2px solid black;
+  text-align: center;
+  height: 100px;
+  line-height: 100px;
+}
