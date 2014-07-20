@@ -26,9 +26,7 @@ Controller.prototype = {
   },
 
   clearBoard: function(){
-    for(index in this.board.board){
-      this.board.board[index] = null
-    }
+    this.board.board = new Array(16)
     this.view.refreshBoard(this.board.board)
   },
 
@@ -46,19 +44,18 @@ function Board(){
 Board.prototype = {
   generateNewTile: function(){
     var emptyIndex = this.randomEmptyIndex()
-    this.board[emptyIndex] = new Tile
+    this.board[emptyIndex] = new Tile()
     return emptyIndex
   },
 
   randomEmptyIndex: function(){
-    var found = false
-    while (found == false) {
-      var randIndex = Math.floor( (Math.random() * this.board.length-1) );
-      if (this.board[randIndex] == null){
-        found = true
+    for(var i=0; i<16; i++){
+      var randIndex = Math.floor( (Math.random() * 16) );
+      if(this.board[randIndex] == null){
         return randIndex
       }
     }
+    return false
   },
 
 
@@ -77,6 +74,7 @@ View.prototype = {
   refreshBoard: function(board_obj){
     $('.grid-cell').html('')
     for(index in board_obj){
+      if(board_obj[index].constructor.name == 'Tile')
       $('#' + index).append('<div class="tile">' + board_obj[index].value + '</div>')
     }
   },
