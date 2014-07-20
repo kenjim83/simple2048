@@ -6,6 +6,9 @@ $(document).ready(function(){
 
 }); // end document ready
 
+// dete
+
+
 // CONTROLLER
 
 function Controller(view, board){
@@ -18,6 +21,37 @@ Controller.prototype = {
     $('#new-tile').on("click",this.addNewTile.bind(this))
     $('#clear-board').on("click",this.clearBoard.bind(this))
 
+    // Listen for arrow keys
+    $(document).keydown(this.delegateKeys.bind(this))
+
+  },
+
+  delegateKeys: function(e){
+    if(e.which==38){
+      this.up()
+    }
+    else if(e.which==40){
+      this.down()
+    }
+    else if(e.keyCode==37){
+      this.left()
+    }
+    else if(e.keyCode==39){
+      this.right()
+    }
+  },
+
+  up: function(){
+    console.log('up')
+  },
+  down: function(){
+    console.log('down')
+  },
+  left: function(){
+    console.log('left')
+  },
+  right: function(){
+    console.log('right')
   },
 
   addNewTile: function(){
