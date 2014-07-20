@@ -1,13 +1,53 @@
+$(document).ready(function(){
+  view = new View()
+  board = new Board()
+  controller = new Controller(view, board)
+  controller.bindListeners()
+
+}); // end document ready
+
+// CONTROLLER
+
+function Controller(view, board){
+  this.view = view
+  this.board = board
+}
+
+Controller.prototype = {
+  bindListeners: function(){
+    $('#new-tile').on("click",this.addNewTile.bind(this))
+    $('#clear-board').on("click",this.clearBoard.bind(this))
+
+  },
+
+  addNewTile: function(){
+    this.board.generateNewTile()
+    this.view.refreshBoard(this.board.board)
+  },
+
+  clearBoard: function(){
+    for(index in this.board.board){
+      this.board.board[index] = null
+    }
+    this.view.refreshBoard(this.board.board)
+  },
+
+
+
+} // End Controller
+
+
 // MODEL
 
 function Board(){
-  var num_rows_columns = 4
-  this.board = new Array(Math.pow(num_rows_columns, 2))
+  this.board = new Array(16)
 }
 
 Board.prototype = {
   generateNewTile: function(){
-    this.board[this.randomEmptyIndex()] = new Tile
+    var emptyIndex = this.randomEmptyIndex()
+    this.board[emptyIndex] = new Tile
+    return emptyIndex
   },
 
   randomEmptyIndex: function(){
@@ -31,11 +71,13 @@ function Tile(){
 
 // VIEW
 
+function View(){}
 
-// CONTROLLER
-
-
-
-
-game = new Board
-game.board
+View.prototype = {
+  refreshBoard: function(board_obj){
+    $('.grid-cell').html('')
+    for(index in board_obj){
+      $('#' + index).append('<div class="tile">' + board_obj[index].value + '</div>')
+    }
+  },
+}
